@@ -1,0 +1,704 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script type="text/javascript" async="" src="web//analytics.js"></script>
+  <script type="text/javascript" id="www-widgetapi-script" src="web/www-widgetapi.js" async=""></script>
+  <script src="web/jsapi" type="text/javascript"></script>
+  <script src="web/mathjax-config.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css"
+    crossorigin="anonymous" title="hl-light">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai.min.css"
+    crossorigin="anonymous" title="hl-dark" disabled>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/shell.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/dockerfile.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/latex.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/tex.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full"
+    integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+
+
+
+  <script type="text/javascript">
+    google.load("jquery", "1.3.2");
+  </script>
+  <style type="text/css">
+    body {
+      font-family: "Titillium Web", "HelveticaNeue-Light",
+        "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial,
+        "Lucida Grande", sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 1100px;
+    }
+
+    h1 {
+      font-weight: 300;
+    }
+
+    .disclaimerbox {
+      background-color: #eee;
+      border: 1px solid #eeeeee;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      padding: 20px;
+    }
+
+    video.header-vid {
+      height: 140px;
+      border: 1px solid black;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+    }
+
+    img.header-img {
+      height: 140px;
+      border: 1px solid black;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+    }
+
+    img.rounded {
+      border: 1px solid #eeeeee;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+    }
+
+    a:link,
+    a:visited {
+      color: #1367a7;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #208799;
+    }
+
+    td.dl-link {
+      height: 160px;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .layered-paper-big {
+      /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+      box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The top layer shadow */
+        5px 5px 0 0px #fff,
+        /* The second layer */
+        5px 5px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The second layer shadow */
+        10px 10px 0 0px #fff,
+        /* The third layer */
+        10px 10px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The third layer shadow */
+        15px 15px 0 0px #fff,
+        /* The fourth layer */
+        15px 15px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The fourth layer shadow */
+        20px 20px 0 0px #fff,
+        /* The fifth layer */
+        20px 20px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The fifth layer shadow */
+        25px 25px 0 0px #fff,
+        /* The fifth layer */
+        25px 25px 1px 1px rgba(0, 0, 0, 0.35);
+      /* The fifth layer shadow */
+      margin-left: 10px;
+      margin-right: 45px;
+    }
+
+    .layered-paper {
+      /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+      box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The top layer shadow */
+        5px 5px 0 0px #fff,
+        /* The second layer */
+        5px 5px 1px 1px rgba(0, 0, 0, 0.35),
+        /* The second layer shadow */
+        10px 10px 0 0px #fff,
+        /* The third layer */
+        10px 10px 1px 1px rgba(0, 0, 0, 0.35);
+      /* The third layer shadow */
+      margin-top: 5px;
+      margin-left: 10px;
+      margin-right: 30px;
+      margin-bottom: 5px;
+    }
+
+    .vert-cent {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.75),
+          rgba(0, 0, 0, 0));
+    }
+
+    #authors td {
+      padding-bottom: 5px;
+      padding-top: 30px;
+    }
+  </style>
+
+  <script type="text/javascript" src="web/hidebib.js"></script>
+  <link href="web/css" rel="stylesheet" type="text/css" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="web/robotic_arm.png" type="image/x-icon">
+  <title>Force-Based Hindsight Experience Prioritization</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://erdiphd.github.io/HER_force/" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <meta property="og:site_name" content="Relational Reinforcement Learning" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:title" content="Force-Based Hindsight Experience Prioritization" />
+  <meta property="og:description"
+    content="Li, Jabri, Darrell, Agrawal. Force-Based Hindsight Experience Prioritization. 2019." />
+  <meta property="og:url" content="https://richardrl.github.io/relational-rl/" />
+  <meta property="og:image" content="https://pathak22.github.io/modular-assemblies/resources/generalization.png" />
+  <meta property="og:video" content="https://www.youtube.com/embed/nVuoxhVqBVw" />
+
+  <meta property="article:publisher" content="https://github.com/richardrl/richardrl.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Force-Based Hindsight Experience Prioritization" />
+  <meta name="twitter:description"
+    content="Li, Jabri, Darrell, Agrawal. Force-Based Hindsight Experience Prioritization. 2019." />
+  <meta name="twitter:url" content="https://richardrl.github.io/relational-rl/" />
+  <meta name="twitter:image" content="https://richardrl.github.io/relational-rl/resources/teaser.jpg" />
+  <meta name="twitter:label1" content="Written by" />
+  <meta name="twitter:data1" content="Richard Li" />
+  <meta name="twitter:label2" content="Filed under" />
+  <meta name="twitter:data2" content="" />
+  <meta name="twitter:site" content="@richardli" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="900" />
+
+  <script src="web/iframe_api"></script>
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:image" content="https://richardrl.github.io/relational-rl/resources/teaser.jpg" />
+  <meta name="twitter:player" content="https://www.youtube.com/embed/nVuoxhVqBVw" />
+  <meta name="twitter:player:width" content="640" />
+  <meta name="twitter:player:height" content="360" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="web/js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-89486716-2");
+  </script>
+</head>
+
+
+<body>
+  <br />
+  <center>
+    <span style="font-size: 44px; font-weight: bold">Force-Based Hindsight Experience Prioritization</span>
+  </center>
+  <br />
+  <table align="center" width="600px">
+    <tbody>
+      <tr>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size: 22px"><a href="https://erdisayar.github.io/" target="_blank">Erdi Sayar</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size: 22px"><a href="https://zhenshan-bing.github.io/" target="_blank">Zhenshan
+                Bing</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size: 22px"><a href="https://www.informatik.uni-wuerzburg.de/rlcdm/team/carlo-deramo/"
+                target="_blank">Carlo D'Eramo</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
+            <span style="font-size: 22px"><a href="https://www.ce.cit.tum.de/air/people/prof-dr-ing-habil-alois-knoll/"
+                target="_blank">Alois Knoll</a></span>
+          </center>
+        </td>
+
+      </tr>
+      <tr></tr>
+      <tr>
+        <td align="center" width="200px">
+          <center>
+            <span style="font-size: 20px">Technical University of Munich</span>
+          </center>
+        </td>
+        <td align="center" width="200px">
+          <center><span style="font-size: 20px">Technical University of Munich</span></center>
+        </td>
+        <td align="center" width="200px">
+          <center><span style="font-size: 20px">University of Würzburg</span></center>
+        </td>
+        <td align="center" width="200px">
+          <center><span style="font-size: 20px">Technical University of Munich</span></center>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <table align="center" width="700px">
+    <tbody>
+      <tr>
+        <td align="center" width="700px">
+          <center><span style="font-size: 22px">IROS 2023</span></center>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <table align="center" width="700px">
+    <tbody>
+      <tr>
+        <td align="center" width="200px">
+          <center>
+            <span style="font-size: 22px"><a href="https://arxiv.org/pdf/paper_pdf_adress.pdf">[Download
+                Paper]</a></span>
+          </center>
+        </td>
+        <td align="center" width="200px">
+          <center>
+            <span style="font-size: 22px"><a href="https://github.com/erdiphd/HER_force">[GitHub Code]</a></span>
+          </center>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+  <br />
+
+  <table align="center" width="300px">
+    <tbody>
+      <tr>
+        <td align="center" width="300px">
+          <iframe width="768" height="512" src="web/video.html" frameborder="0" allowfullscreen=""></iframe>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!--       <br>
+ -->
+  <div style="width: 800px; margin: 0 auto">
+    <br />
+    Sections
+    <ul style="margin-top: 0px">
+      <li> <b> Abstract </b> </li>
+      <li> <b>Methodology </b></li>
+      <li><b> Experiment </b> </li>
+    </ul>
+    <center>
+      <h3>Abstract</h3>
+    </center>
+    Multi-goal robot manipulation tasks with sparse rewards are difficult for reinforcement learning (RL) algorithms due
+    to the inefficiency in collecting successful experiences. Recent algorithms such as Hindsight Experience Replay
+    (HER) expedite learning by taking advantage of failed trajectories and replacing the desired goal with one of the
+    achieved points so that any failed trajectory can be utilized as a contribution to learning. However, HER uniformly
+    chooses failed trajectories, without taking into account which ones might be the most valuable for learning.
+    In this paper, we tackle this problem of HER and propose a novel approach for prioritizing the sampling from the
+    replay buffer based on advanced information related to physics, leveraging the force and touch sensors in the
+    gripper of the robot. Our prioritizing scheme favors sampling of contact-rich experiences, which are arguably the
+    ones providing the largest amount of information. We evaluate our proposed prioritizing schemes on various sparse
+    reward robotic tasks and compare them with state-of-the-art methods such as a Contact-Prioritized Replay Buffer
+    (CPER) and vanilla HER. We show that our methods surpass or perform on par with state-of-the-art methods on robot
+    manipulation tasks.
+    Finally, we deploy the trained policy from our method to a real Franka robot for a pick-and-place task. We observe
+    that the robot can solve the task successfully.
+
+    <center>
+      <h3>Methodology</h3>
+    </center>
+
+
+
+    When we train the robots to perform manipulation tasks, the sparse reward signal causes insufficient successful
+    experiences. HER leverages failed experiences by replacing desired goal with the achieved goal of the failed
+    experiences. With this modification, any failed experience return nonnegative reward.
+    However, if the initial position of the robot is far from the desired position, hindsight goals generated by HER may
+    not be effective in solving the task because they are sampled randomly from the visited states, which are mostly
+    distributed around the initial state. Consequently, experiences are not regarded based on their importance for
+    learning, which leads to sample inefficiency. Instead, we leverage the contact sensor and prioritize the experiences
+    using the metrics in the equation~\eqref{eq:p_episode_based_on_contact} named as contact-energy replay buffer. In
+    the ablation study, we used force sensors in the gripper instead of touch sensors. Force sensors and touch sensors
+    differ in that the former considers all the forces that are affecting the system, both contacts and external
+    disturbances such as coriolis, centripetal, and gravitational forces, whereas the latter only detects physical
+    contact.
+
+    \subsection{Contact Energy Prioritization}
+    \label{sec:contact_energy_replay_buffer}
+    The touch sensors, as shown in Fig. \ref{fig:fetchpickandplace_force_sensor}, are used on the gripper's left and
+    right sides to measure contact forces. The output of the touch sensor is a non-negative scalar value which is
+    calculated by summing up the normal forces from all the contacts points. Then, contact forces from the left and
+    right sides are summed up into a single value. Next, in each time step, we multiply these contact forces by the
+    euclidian norm of object's displacement and calculate the contact-energy as expressed in
+    equation \eqref{eq:contact_energy}.
+    \begin{equation}
+    c(e,t) = \sum_{i=0}^{t} \left( {f}_{left}\left(e,i \right) +{f}_{ right}\left(e,i\right) \right) \cdot \lvert
+    \lvert\Delta {d}_{c}(i) \rvert \rvert_{2},
+    \label{eq:contact_energy}
+    \tag{1}
+    \end{equation}
+    where $\lvert \lvert\Delta {d}_c(i) \rvert \rvert_{2}$ is the euclidian distance of the object's displacement
+    between current $i$ and previous timestep $ i -1 $.
+
+    \begin{equation}
+    p_{episode}(e) = \frac{\sum_{t=0}^{T}c(e,t)}{\sum_{i_{e}=0}^{e} \sum_{t=0}^{T}c(i_{e},t)}.
+    \label{eq:p_episode_based_on_contact}
+    \tag{2}
+    \end{equation}
+
+    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_contact} is calculated
+    based on their contact-energy rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer
+    $\mathcal{R}$ according to the probability distribution $p_{episode}(e)$.
+
+    Prioritizing the experiences according to the given methods above introduces bias because it changes the
+    distribution, thereby changing the ultimate solution that the estimates will converge to. This bias can be removed
+    by using the importance-sampling (IS) weights given in the equation~\eqref{eq:bias_correction}. Then, these weights
+    are multiplied with temporal difference (TD) error $w_{i} \delta_{i} $ and the Q-value is updated.
+    For stability reasons, weights are normalized by $1/ max(w)$ \cite{schaul2015prioritized}.
+    \begin{equation}
+    \label{eq:bias_correction}
+    w_{i} = \left( N \cdot p_{episode}(e) \right)^{-\beta}.
+    \tag{3}
+    \end{equation}
+
+    Our approach can be used in combination with any off-policy algorithm, and we choose the Deep Deterministic Policy
+    Gradients (DDPG) \cite{lillicrap2015continuous} algorithm for comparing the results in the section
+    \ref{sec:experiment}. Then, a desired goal and initial state are sampled, and trajectories are collected by running
+    the policy. Some of the achieved goals from the current episode are chosen as hindsight goal and reward is
+    recalculated and added in replay buffer. The probability distribution $ p_{episode}(e)$ is calculated using
+    equation \ref{eq:p_episode_based_on_contact} and a mini-batch is sampled according to $ p_{episode}(e)$ from
+    replay buffer $\mathcal{R}$.
+    The importance sampling weight using the equation \ref{eq:bias_correction} and TD-error are then calculated for
+    each transition sampled from the mini batch. Finally, the weights are updated.
+
+    <left>
+      <h4>Ablation Study</h4>
+    </left>
+    In the ablation study, we investigate and compare the force sensor based replay buffers; <i>cumulative force</i>
+    <i>non-cumulative force</i>, <i>cumulative work</i> and <i>non-cumulative work</i> replay buffers. As stated
+    earlier, the force sensor measures all forces acting on the system. Therefore, the gripper always has gravitational
+    forces proportional to its mass $m$ in the negative z direction. To compensate for that force, we added weight of
+    the gripper (i.e., $m g$) in the positive z direction.
+
+    <left>
+      <h5>Force Based Replay Buffer</h5>
+    </left>
+    The measured multidimensional force can be used either cumulatively or non-cumulatively. In other words, the force
+    values are added through timesteps named as \textit{cumulative force} or only the force measured in current time
+    step is used named as \textit{non-cumulative force}. Then, the measured multi-dimensional force is turned into a
+    scalar value by adding the absolute value in each dimension, as written in equation~\eqref{eq:cumulative_force} and
+    equation~\eqref{eq:noncumulative_force}.
+    \begin{alignat}{2}
+    f(e,t) &= \sum_{j=0}^{n} \sum_{i=0}^{t} \lvert {f}_{left}^{\left(j\right)}\left(e,i\right)\rvert +\lvert {f}_{
+    right}^{\left(j\right)}\left(e,i\right)\rvert
+    \label{eq:cumulative_force}
+    \tag{4} \\
+    f(e,t) &= \sum_{j=0}^{n} \lvert {f}_{left}^{\left(j\right)}\left(e,t\right)\rvert +\lvert {f}_{
+    right}^{\left(j\right)}\left(e,t\right)\rvert
+    \label{eq:noncumulative_force}
+    \tag{5}
+    \end{alignat}
+    where $n$ is the dimension of the force sensor, $t$ is timesteps, $f_{left}$ and $f_{right}$ are the forces from the
+    left and right side of the gripper, respectively.
+    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_force} is calculated based
+    on their force-rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer $\mathcal{R}$
+    according to the probability distribution $p_{episode}(e)$.
+    \begin{equation}
+    p_{episode}(e) = \frac{\sum_{t=0}^{T}f(e,t)}{\sum_{i_{e}=0}^{e} \sum_{t=0}^{T}f(i_{e},t)}.
+    \label{eq:p_episode_based_on_force}
+    \tag{6}
+    \end{equation}
+
+    <left>
+      <h5>Work Based Prioritization</h5>
+    </left>
+    A similar approach described in this section \ref{sec:force_based_replay_buffer} is used for work-based
+    prioritization. We multiply the force measurement with displacement vector. If the cumulative force is multiplied
+    with displacement vector, then it is called \textit{cumulative work} and expressed in
+    equation~\eqref{eq:cumulaive_work}. Otherwise; \textit{non-cumulative work} expressed in
+    equation~\eqref{eq:noncumulaive_work}.
+    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_work} is calculated based
+    on their work-rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer $\mathcal{R}$
+    according to the probability distribution $p_{episode}(e)$.
+
+
+    \begin{alignat}{2}
+    w(e,t) &= \sum_{j=0}^{n}\sum_{i=0}^{t} \left(\lvert {f}_{left}^{\left(j\right)}\left(e,i\right)\rvert +\lvert {f}_{
+    right}^{\left(j\right)}\left(e,i\right)\rvert \right) \cdot \Delta {d}_g^{\left(j\right)}(i)
+    \label{eq:cumulaive_work}
+    \tag{7} \\
+    w(e,t) &= \sum_{j=0}^{n}\left( \lvert {f}_{left}^{\left(j\right)}\left(e,t\right)\rvert +\lvert {f}_{
+    right}^{\left(j\right)}\left(e,t\right)\rvert \right) \cdot \Delta {d}_g^{\left(j\right)}(t)
+    \label{eq:noncumulaive_work}
+    \tag{8}
+    \end{alignat}
+    where $\Delta {d}_g^{\left(j\right)}(i)$ is the displacement vector of the gripper between current $i$ and previous
+    timestep $i-1$ in dimension $j$. $w\left(e,t\right)$ is the cumulative work done until step $t$.
+    \begin{equation}
+    p_{episode}(e) = \frac{\sum_{t=0}^{T}w(e,t)}{\sum_{i_{e}=0}^{e} \sum_{t=0}^{T}w(i_{e},t)}.
+    \label{eq:p_episode_based_on_work}
+    \tag{9}
+    \end{equation}
+
+    <center>
+      <h3>Experiment</h3>
+    </center>
+
+    \label{sec:experiment}
+    In this section, we describe the robot simulation benchmark used for testing the proposed approach. We test the
+    proposed replay buffer using a 7-DOF robotic arm in the MuJoCo simulation and the robotic arm environment is
+    designed as a standard benchmark for Multi-Goal RL. Three standard manipulation tasks from the benchmark:
+    pickandplace, push, slide are
+    selected as shown in Figure \ref{fig:benchmark_env}. We train policies on a single machine using 8 CPU core and each
+    core generates experiences two parallel rollouts and uses MPI for synchronization. After every epoch, the
+    performance is evaluated by running 10 deterministic test rollouts for each MPI worker. Then, the success rate of
+    the tests is calculated by averaging the results across both the rollouts and the MPI workers. One epoch consists of
+    50 episodes per rollout per MPI worker.
+    The state vector consists of goal position as well as position, orientation, linear and angular velocity of
+    end-effector and object. A goal represents the desired position for an object. It is assumed that the task is
+    accomplished if object reaches the goal within the distance set by a threshold. If the object is not in the range of
+    the goal, the agent receives a negative
+    reward $-1$; otherwise, the non-negative reward $0$. We test the proposed contact-energy replay buffer with 10
+    different random seeds against another method using tactile information for prioritization, namely CPER
+    (We use the implementation provided by the authors at <a
+      href="https://github.com/nikolavulin/tactile_intrinsic_motivation">https://github.com/nikolavulin/tactile_intrinsic_motivation</a>)
+    and vanilla HER using
+    three robotic manipulation \textit{FetchPickAndPlace-v1}, \textit{FetchPush-v1} and \textit{FetchSlide-v1} tasks
+    shown in Fig. \ref{fig:benchmark_env}.
+
+
+    <ul>
+      <li>Pick & Place Task (<i>FetchPickAndPlace-v1</i>):
+        The mission is to grasp the black object with a gripper and place it at the target location shown as a red dot
+        in
+        the Fig. \ref{fig:fetch_pick_and_place}. The target position and black object are sampled from the blue region
+        and
+        yellow area, respectively.</li>
+      <li>Push Task (<i>FetchPush-v1</i>):
+        Both target position and black object are sampled from blue area on the table, and the robot's gripper is
+        clamped
+        illustrated in Fig. \ref{fig:fetch_push}. The mission is to push the object to the target position.</li>
+      <li>Slide Task (<i>FetchSlide-v1</i>):
+        The black object is sampled from yellow area and placed on a long slippery table and the target is sampled from
+        the
+        blue area and it is outside of the robots workspace displayed in Fig. \ref{fig:fetch_slide}. The mission is to
+        hit
+        the puck with a specific force so that it slides on the table and reaches to target location.</li>
+    </ul>
+
+    he outcomes of the simulation shown in Fig. \ref{fig:result_benchmark_env} provide insight into the efficacy of the
+    contact-energy replay buffer that has been proposed. At the early stage of the training in pickandplace environment,
+    the robot is unable to ascertain how to firmly grasp the object between its grippers. Therefore, it could not
+    provide contact forces. Additionally, the contact energy replay buffer depends upon the object's displacement and
+    the object does not cover much distance most of the time in the early stage. As a result of this, contact-energy is
+    lagging behind the other benchmarks methods at the beginning. Once the robot learns how to grasp the object
+    properly, it outperforms other benchmark methods as illustrated in Fig. \ref{fig:result_fetch_pick_and_place}. In a
+    push environment Fig. \ref{fig:result_fetch_push}, the robot can swiftly interact with the object and provide
+    contact forces and excels the other benchmarks tasks even in early stage of the training. In the slide task, contact
+    between the robot and the object occurs for a very short time, resulting in limited contact feedback. The suboptimal
+    performance of CPER \cite{Vulin_2021} can be attributed to prioritization strategy and goal sampling region. During
+    the prioritization in the CPER, the force values are accumulated through the timesteps, and when this cumulative sum
+    surpasses a predetermined threshold, the corresponding forces are given a constant value of $\lambda$, otherwise,
+    they are set to $1$. As a result, a wide range of force values is compressed into a set with only two elements,
+    $\{1, \lambda\}$. Consequently, CPER does not consider varying levels of importance of the different force values
+    for prioritization of the experiences. In contrast to the CPER, we do not set any lower and upper bounds to clip the
+    force values, and we prioritize the experiences based on their wide range of contact-rich information. Moreover, we
+    select goals from a region near the gripper's initial position, whereas in CPER, goals for pickandplace and push
+    tasks may be sampled from the outermost region of the robot's workspace. In the ablation study, we investigate the
+    force sensor-based replay buffers and compare them with contact-energy replay buffer.
+    Based on the training outcomes illustrated in Fig. \ref{fig:ablation_study}, it can be observed that there is
+    minimal variation among the <i>cumulative force</i>, <i>non-cumulative force</i> (nc_force), <i>cumulative
+      work</i>, and <i>non-cumulative work</i> (nc_work) replay buffers across all tasks.
+
+    <center>
+      <h3>Sim2Real</h3>
+    </center>Sim2Real
+    We trained the Franka robot in the MuJoCo simulation environment using a contact-energy replay buffer, shown in the
+    Fig. \ref{fig:franka_robot_setups}.
+    The experiment was set up with a camera and ArUco markers.
+    ArUco markers and the red cube object are detected using the Aruco module and a red filter with the Open-CV library,
+    respectively, and the centers of their pixel positions are obtained as shown in the Fig.
+    \ref{fig:sim2real_from_camera_view}. Next, the end-effector is moved freely to find out where the ArUco markers are
+    with respect to the robot reference frame. Then the cv.getPerspectiveTransform method is used to calculate the
+    perspective transform matrix from those four pairs of points. Lastly, the cube's position in relation to the robot's
+    reference frame can be found by multiplying the cube's pixel position by this perspective matrix.
+
+
+    <div class="row_mujoco_robotics">
+      <div class="column_mujoco_robotics">
+        <img src="web/img/robot_benchmark_figures.png" alt="Benchmark environments" style="width:100%">
+      </div>
+    </div>
+
+
+    <div class="row_mujoco_robotics">
+      <div class="column_mujoco_robotics">
+        <img src="web/img/main_figure.png" alt="Main study result" style="width:100%">
+      </div>
+    </div>
+
+
+    <div class="row_mujoco_robotics">
+      <div class="column_mujoco_robotics">
+        <img src="web/img/ablation_figure.png" alt="Ablation study result" style="width:100%">
+      </div>
+    </div>
+
+    <div class="row_mujoco_robotics">
+      <div class="column_mujoco_robotics">
+        <img src="web/img/franka_robot_setup.png" alt="franka_robot_setup" style="width:100%">
+      </div>
+      <div class="column_mujoco_robotics">
+        <img src="web/img/camera_view.png" alt="camera_view" style="width:100%">
+      </div>
+    </div>
+
+  </div>
+  <br />
+
+  <h3>How to run benchmarks</h3>
+  <div class="highlight1">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#fd00dc">#!/bin/bash</span> <br> </br><span style="color:#0167ff">docker-compose run --rm -d -e mujoco_env=FrankaPickAndPlace-v1 -e log_tag=log/train1 -e n_epochs=200 cher</span>
+  </code></pre>
+  </div>
+
+  <br />
+  <br />
+
+  <center id="sourceCode">
+    <h1>Source Code and Environment</h1>
+  </center>
+  <div style="width:800px; margin:0 auto; text-align=center">
+    We have released the PyTorch based implementation and environment on the
+    Github page. Try our code!
+  </div>
+  <table align="center" width="900px">
+    <tbody>
+      <tr>
+        <!-- <p style="margin-top:4px;"></p> -->
+        <td width="300px" align="center">
+          <span style="font-size: 28px"><a href="https://github.com/erdisayar">[GitHub]</a></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <hr />
+
+  <h1 style="text-align: center">Paper and Bibtex</h1>
+  <table align="center" width="850px">
+    <tbody>
+      <tr>
+        <td width="250px" align="left">
+          <!-- <p style="margin-top:4px;"></p> -->
+          <a href="https://arxiv.org/pdf/1912.11032.pdf"><img style="height: 150px"
+              src="web/ICRA_PAPER_RICHARD.pdf.jpg" /></a>
+          <span style="font-size: 20pt"><a href="https://arxiv.org/pdf/1912.11032.pdf">[Paper]</a>&nbsp;
+            <span style="font-size: 20pt"><a href="https://arxiv.org/pdf/1912.11032.pdf">[ArXiv]</a>
+            </span></span>
+        </td>
+        <td width="50px" align="center"></td>
+        <td width="550px" align="left">
+          <!-- <p style="margin-top:4px;"></p> -->
+          <p style="text-align: left">
+            <b><span style="font-size: 20pt">Citation</span></b><br /><span style="font-size: 6px">&nbsp;<br /></span>
+            <span style="font-size: 15pt">Richard Li, Allan Jabri, Trevor Darrell, Pulkit Agrawal.
+              <b>Towards Practical Multi-object Manipulation using Relational
+                Reinforcement Learning.<br /></b>
+              In <i>ICRA</i> 2020.</span>
+          </p>
+          <!-- <p style="margin-top:20px;"></p> -->
+          <span style="font-size: 20pt"><a shape="rect" href="javascript:togglebib(&#39;relationalrl19_bib&#39;)"
+              class="togglebib">[Bibtex]</a></span>
+        </td>
+      </tr>
+      <tr>
+        <td width="250px" align="left"></td>
+        <td width="50px" align="center"></td>
+        <td width="550px" align="left">
+          <div class="paper" id="relationalrl19_bib">
+            <pre xml:space="preserve" style="display: none">
+@inproceedings{li19relationalrl,
+  Author = {Li, Richard and
+  Jabri, Allan and Darrell, Trevor and Agrawal, Pulkit},
+  Title = {Towards Practical Multi-object Manipulation using Relational Reinforcement Learning},
+  Booktitle = {arXiv preprint arXiv:XXXX},
+  Year = {2019}
+}</pre>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <hr />
+
+  <!--     <table align=center width=800px>
+      <tr><td width=800px><left> -->
+  <div style="width: 800px; margin: 0 auto; text-align: left">
+    <center>
+      <h1>Acknowledgements</h1>
+    </center>
+    We acknowledge support from US Department of Defense, DARPA's Machine
+    Common Sense Grant and the BAIR and BDD industrial consortia. We thank
+    Amazon Web Services (AWS) for their generous support in the form of cloud
+    credits. We'd like to thank Vitchyr Pong, Kristian Hartikainen, Ashvin
+    Nair and other members of the BAIR lab and the Improbable AI lab for
+    helpful discussions during this project.
+    <a href="https://people.eecs.berkeley.edu/~pathak/">Template credit</a>.
+    <!--       </left></td></tr>
+    </table> -->
+    <br /><br />
+    <script xml:space="preserve" language="JavaScript">
+      hideallbibs();
+    </script>
+  </div>
+
+
+
+
+
+</body>
+
+
+
+</html>

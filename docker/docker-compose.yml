@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  her_tactile:
+    image: erdiphd/her_force:latest
+    volumes:
+    - ../code:/home/user/her
+    environment:
+      mujoco_env: FetchPickAndPlace-v1
+      log_tag: log/train1
+      n_epochs: 200
+      num_cpu : 1
+      prioritization : contact_energy
+      reward_type: sparse
