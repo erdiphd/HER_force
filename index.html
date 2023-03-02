@@ -356,7 +356,7 @@
     not be effective in solving the task because they are sampled randomly from the visited states, which are mostly
     distributed around the initial state. Consequently, experiences are not regarded based on their importance for
     learning, which leads to sample inefficiency. Instead, we leverage the contact sensor and prioritize the experiences
-    using the metrics in the equation~\eqref{eq:p_episode_based_on_contact} named as contact-energy replay buffer. In
+    using the metrics in the equation \eqref{eq:p_episode_based_on_contact} named as contact-energy replay buffer. In
     the ablation study, we used force sensors in the gripper instead of touch sensors. Force sensors and touch sensors
     differ in that the former considers all the forces that are affecting the system, both contacts and external
     disturbances such as coriolis, centripetal, and gravitational forces, whereas the latter only detects physical
@@ -364,7 +364,7 @@
 
     \subsection{Contact Energy Prioritization}
     \label{sec:contact_energy_replay_buffer}
-    The touch sensors, as shown in Fig. \ref{fig:fetchpickandplace_force_sensor}, are used on the gripper's left and
+    The touch sensors, as shown in Fig. 1a, are used on the gripper's left and
     right sides to measure contact forces. The output of the touch sensor is a non-negative scalar value which is
     calculated by summing up the normal forces from all the contacts points. Then, contact forces from the left and
     right sides are summed up into a single value. Next, in each time step, we multiply these contact forces by the
@@ -385,13 +385,13 @@
     \tag{2}
     \end{equation}
 
-    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_contact} is calculated
+    The probability distribution of the episodes in the equation \eqref{eq:p_episode_based_on_contact} is calculated
     based on their contact-energy rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer
     $\mathcal{R}$ according to the probability distribution $p_{episode}(e)$.
 
     Prioritizing the experiences according to the given methods above introduces bias because it changes the
     distribution, thereby changing the ultimate solution that the estimates will converge to. This bias can be removed
-    by using the importance-sampling (IS) weights given in the equation~\eqref{eq:bias_correction}. Then, these weights
+    by using the importance-sampling (IS) weights given in the equation \eqref{eq:bias_correction}. Then, these weights
     are multiplied with temporal difference (TD) error $w_{i} \delta_{i} $ and the Q-value is updated.
     For stability reasons, weights are normalized by $1/ max(w)$ \cite{schaul2015prioritized}.
     \begin{equation}
@@ -425,8 +425,8 @@
     The measured multidimensional force can be used either cumulatively or non-cumulatively. In other words, the force
     values are added through timesteps named as \textit{cumulative force} or only the force measured in current time
     step is used named as \textit{non-cumulative force}. Then, the measured multi-dimensional force is turned into a
-    scalar value by adding the absolute value in each dimension, as written in equation~\eqref{eq:cumulative_force} and
-    equation~\eqref{eq:noncumulative_force}.
+    scalar value by adding the absolute value in each dimension, as written in equation \eqref{eq:cumulative_force} and
+    equation \eqref{eq:noncumulative_force}.
     \begin{alignat}{2}
     f(e,t) &= \sum_{j=0}^{n} \sum_{i=0}^{t} \lvert {f}_{left}^{\left(j\right)}\left(e,i\right)\rvert +\lvert {f}_{
     right}^{\left(j\right)}\left(e,i\right)\rvert
@@ -439,7 +439,7 @@
     \end{alignat}
     where $n$ is the dimension of the force sensor, $t$ is timesteps, $f_{left}$ and $f_{right}$ are the forces from the
     left and right side of the gripper, respectively.
-    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_force} is calculated based
+    The probability distribution of the episodes in the equation \eqref{eq:p_episode_based_on_force} is calculated based
     on their force-rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer $\mathcal{R}$
     according to the probability distribution $p_{episode}(e)$.
     \begin{equation}
@@ -451,12 +451,12 @@
     <left>
       <h5>Work Based Prioritization</h5>
     </left>
-    A similar approach described in this section \ref{sec:force_based_replay_buffer} is used for work-based
+    A similar approach described in this section <strong>Force Based Replay Buffer</strong> is used for work-based
     prioritization. We multiply the force measurement with displacement vector. If the cumulative force is multiplied
     with displacement vector, then it is called \textit{cumulative work} and expressed in
-    equation~\eqref{eq:cumulaive_work}. Otherwise; \textit{non-cumulative work} expressed in
-    equation~\eqref{eq:noncumulaive_work}.
-    The probability distribution of the episodes in the equation~\eqref{eq:p_episode_based_on_work} is calculated based
+    equation \eqref{eq:cumulaive_work}. Otherwise; \textit{non-cumulative work} expressed in
+    equation \eqref{eq:noncumulaive_work}.
+    The probability distribution of the episodes in the equation \eqref{eq:p_episode_based_on_work} is calculated based
     on their work-rich information, and a mini-batch $\mathcal{B}$ is sampled from the replay buffer $\mathcal{R}$
     according to the probability distribution $p_{episode}(e)$.
 
@@ -502,37 +502,37 @@
     (We use the implementation provided by the authors at <a
       href="https://github.com/nikolavulin/tactile_intrinsic_motivation">https://github.com/nikolavulin/tactile_intrinsic_motivation</a>)
     and vanilla HER using
-    three robotic manipulation \textit{FetchPickAndPlace-v1}, \textit{FetchPush-v1} and \textit{FetchSlide-v1} tasks
-    shown in Fig. \ref{fig:benchmark_env}.
+    three robotic manipulation <i>FetchPickAndPlace-v1</i>, <i>FetchPush-v1</i> and <i>FetchSlide-v1</i> tasks
+    shown in Fig. 1.
 
 
     <ul>
       <li>Pick & Place Task (<i>FetchPickAndPlace-v1</i>):
         The mission is to grasp the black object with a gripper and place it at the target location shown as a red dot
         in
-        the Fig. \ref{fig:fetch_pick_and_place}. The target position and black object are sampled from the blue region
+        the Fig. 1b. The target position and black object are sampled from the blue region
         and
         yellow area, respectively.</li>
       <li>Push Task (<i>FetchPush-v1</i>):
         Both target position and black object are sampled from blue area on the table, and the robot's gripper is
         clamped
-        illustrated in Fig. \ref{fig:fetch_push}. The mission is to push the object to the target position.</li>
+        illustrated in Fig. 1c. The mission is to push the object to the target position.</li>
       <li>Slide Task (<i>FetchSlide-v1</i>):
         The black object is sampled from yellow area and placed on a long slippery table and the target is sampled from
         the
-        blue area and it is outside of the robots workspace displayed in Fig. \ref{fig:fetch_slide}. The mission is to
+        blue area and it is outside of the robots workspace displayed in Fig. 1d. The mission is to
         hit
         the puck with a specific force so that it slides on the table and reaches to target location.</li>
     </ul>
 
-    he outcomes of the simulation shown in Fig. \ref{fig:result_benchmark_env} provide insight into the efficacy of the
+    he outcomes of the simulation shown in Fig. 2 provide insight into the efficacy of the
     contact-energy replay buffer that has been proposed. At the early stage of the training in pickandplace environment,
     the robot is unable to ascertain how to firmly grasp the object between its grippers. Therefore, it could not
     provide contact forces. Additionally, the contact energy replay buffer depends upon the object's displacement and
     the object does not cover much distance most of the time in the early stage. As a result of this, contact-energy is
     lagging behind the other benchmarks methods at the beginning. Once the robot learns how to grasp the object
-    properly, it outperforms other benchmark methods as illustrated in Fig. \ref{fig:result_fetch_pick_and_place}. In a
-    push environment Fig. \ref{fig:result_fetch_push}, the robot can swiftly interact with the object and provide
+    properly, it outperforms other benchmark methods as illustrated in Fig. 2a. In a
+    push environment Fig. 2b, the robot can swiftly interact with the object and provide
     contact forces and excels the other benchmarks tasks even in early stage of the training. In the slide task, contact
     between the robot and the object occurs for a very short time, resulting in limited contact feedback. The suboptimal
     performance of CPER \cite{Vulin_2021} can be attributed to prioritization strategy and goal sampling region. During
@@ -545,7 +545,7 @@
     select goals from a region near the gripper's initial position, whereas in CPER, goals for pickandplace and push
     tasks may be sampled from the outermost region of the robot's workspace. In the ablation study, we investigate the
     force sensor-based replay buffers and compare them with contact-energy replay buffer.
-    Based on the training outcomes illustrated in Fig. \ref{fig:ablation_study}, it can be observed that there is
+    Based on the training outcomes illustrated in Fig. 3, it can be observed that there is
     minimal variation among the <i>cumulative force</i>, <i>non-cumulative force</i> (nc_force), <i>cumulative
       work</i>, and <i>non-cumulative work</i> (nc_work) replay buffers across all tasks.
 
@@ -553,11 +553,11 @@
       <h3>Sim2Real</h3>
     </center>Sim2Real
     We trained the Franka robot in the MuJoCo simulation environment using a contact-energy replay buffer, shown in the
-    Fig. \ref{fig:franka_robot_setups}.
+    Fig. 4.
     The experiment was set up with a camera and ArUco markers.
     ArUco markers and the red cube object are detected using the Aruco module and a red filter with the Open-CV library,
     respectively, and the centers of their pixel positions are obtained as shown in the Fig.
-    \ref{fig:sim2real_from_camera_view}. Next, the end-effector is moved freely to find out where the ArUco markers are
+    5. Next, the end-effector is moved freely to find out where the ArUco markers are
     with respect to the robot reference frame. Then the cv.getPerspectiveTransform method is used to calculate the
     perspective transform matrix from those four pairs of points. Lastly, the cube's position in relation to the robot's
     reference frame can be found by multiplying the cube's pixel position by this perspective matrix.
@@ -595,9 +595,20 @@
   </div>
   <br />
 
-  <h3>How to run benchmarks</h3>
+  <h1>How to run benchmarks</h1>
+  <h3>Using docker containers</h3>
   <div class="highlight1">
-    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#fd00dc">#!/bin/bash</span> <br> </br><span style="color:#0167ff">docker-compose run --rm -d -e mujoco_env=FrankaPickAndPlace-v1 -e log_tag=log/train1 -e n_epochs=200 cher</span>
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#fd00dc">#!/bin/bash</span>
+       <br> </br><span style="color:#0167ff">git clone https://github.com/erdiphd/HER_force.git</span><br><span style="color:#0167ff">cd HER_force/docker</span><br><br><span style="color:#000000">#train our methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_contact_energy_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_contact_energy_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_contact_energy_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><br><span style="color:#000000">#train cper methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_cper_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_cper_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_cper_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><br><span style="color:#000000">#train her methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_her_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_her_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_her_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile
+  </code></pre>
+  <h3>Creating virtual anaconda python environment</h3>
+  <div class="highlight1">
+    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#fd00dc">#!/bin/bash</span><br> </br><span style="color:#0167ff">source /home/user/conda/bin/activate</span><br><span style="color:#0167ff">conda create --name her python=3.7 -y</span><br><span style="color:#0167ff">conda activate her</span><br><span style="color:#0167ff">pip install numpy && pip install cffi lockfile imageio glfw tensorflow==1.14 cython && pip install mujoco_py && pip install beautifultable==0.7.0<span><br><span style="color:#0167ff">pip install numpy-quaternion gym==0.15.4 click joblib mpi4py scipy  protobuf==3.19 scikit-learn pyyaml pyquaternion</span>
+    <br><span style="color:#000000">#Clone the repository</span>
+    <br><span style="color:#0167ff">git clone https://github.com/erdiphd/HER_force.git</span>
+    <br><span style="color:#000000">#train the robot</span>
+    <br><span style="color:#0167ff">cd HER_force/code/Algorithm</span><br><span style="color:#0167ff">conda activate her</span><br><span style="color:#0167ff">python baselines/her/experiment/train.py --env_name  FetchPickAndPlace-v1 --logdir=log/t1_contact_energy  --n_epochs=50 --num_cpu=8 --prioritization=contact_energy --reward_type sparse
+    </span>
   </code></pre>
   </div>
 
@@ -608,92 +619,19 @@
     <h1>Source Code and Environment</h1>
   </center>
   <div style="width:800px; margin:0 auto; text-align=center">
-    We have released the PyTorch based implementation and environment on the
-    Github page. Try our code!
   </div>
   <table align="center" width="900px">
     <tbody>
       <tr>
         <!-- <p style="margin-top:4px;"></p> -->
         <td width="300px" align="center">
-          <span style="font-size: 28px"><a href="https://github.com/erdisayar">[GitHub]</a></span>
+          <span style="font-size: 28px"><a href="https://github.com/erdiphd/HER_force">[GitHub]</a></span>
         </td>
       </tr>
     </tbody>
   </table>
   <br />
   <hr />
-
-  <h1 style="text-align: center">Paper and Bibtex</h1>
-  <table align="center" width="850px">
-    <tbody>
-      <tr>
-        <td width="250px" align="left">
-          <!-- <p style="margin-top:4px;"></p> -->
-          <a href="https://arxiv.org/pdf/1912.11032.pdf"><img style="height: 150px"
-              src="web/ICRA_PAPER_RICHARD.pdf.jpg" /></a>
-          <span style="font-size: 20pt"><a href="https://arxiv.org/pdf/1912.11032.pdf">[Paper]</a>&nbsp;
-            <span style="font-size: 20pt"><a href="https://arxiv.org/pdf/1912.11032.pdf">[ArXiv]</a>
-            </span></span>
-        </td>
-        <td width="50px" align="center"></td>
-        <td width="550px" align="left">
-          <!-- <p style="margin-top:4px;"></p> -->
-          <p style="text-align: left">
-            <b><span style="font-size: 20pt">Citation</span></b><br /><span style="font-size: 6px">&nbsp;<br /></span>
-            <span style="font-size: 15pt">Richard Li, Allan Jabri, Trevor Darrell, Pulkit Agrawal.
-              <b>Towards Practical Multi-object Manipulation using Relational
-                Reinforcement Learning.<br /></b>
-              In <i>ICRA</i> 2020.</span>
-          </p>
-          <!-- <p style="margin-top:20px;"></p> -->
-          <span style="font-size: 20pt"><a shape="rect" href="javascript:togglebib(&#39;relationalrl19_bib&#39;)"
-              class="togglebib">[Bibtex]</a></span>
-        </td>
-      </tr>
-      <tr>
-        <td width="250px" align="left"></td>
-        <td width="50px" align="center"></td>
-        <td width="550px" align="left">
-          <div class="paper" id="relationalrl19_bib">
-            <pre xml:space="preserve" style="display: none">
-@inproceedings{li19relationalrl,
-  Author = {Li, Richard and
-  Jabri, Allan and Darrell, Trevor and Agrawal, Pulkit},
-  Title = {Towards Practical Multi-object Manipulation using Relational Reinforcement Learning},
-  Booktitle = {arXiv preprint arXiv:XXXX},
-  Year = {2019}
-}</pre>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br />
-  <hr />
-
-  <!--     <table align=center width=800px>
-      <tr><td width=800px><left> -->
-  <div style="width: 800px; margin: 0 auto; text-align: left">
-    <center>
-      <h1>Acknowledgements</h1>
-    </center>
-    We acknowledge support from US Department of Defense, DARPA's Machine
-    Common Sense Grant and the BAIR and BDD industrial consortia. We thank
-    Amazon Web Services (AWS) for their generous support in the form of cloud
-    credits. We'd like to thank Vitchyr Pong, Kristian Hartikainen, Ashvin
-    Nair and other members of the BAIR lab and the Improbable AI lab for
-    helpful discussions during this project.
-    <a href="https://people.eecs.berkeley.edu/~pathak/">Template credit</a>.
-    <!--       </left></td></tr>
-    </table> -->
-    <br /><br />
-    <script xml:space="preserve" language="JavaScript">
-      hideallbibs();
-    </script>
-  </div>
-
-
 
 
 
