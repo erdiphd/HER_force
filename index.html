@@ -248,6 +248,12 @@
         </td>
         <td align="center" width="150px">
           <center>
+            <span style="font-size: 22px"><a href="https://oz-oguz.github.io/"
+                target="_blank">Ozgur S. Oguz</a></span>
+          </center>
+        </td>
+        <td align="center" width="150px">
+          <center>
             <span style="font-size: 22px"><a href="https://www.ce.cit.tum.de/air/people/prof-dr-ing-habil-alois-knoll/"
                 target="_blank">Alois Knoll</a></span>
           </center>
@@ -268,6 +274,9 @@
           <center><span style="font-size: 20px">University of Würzburg</span></center>
         </td>
         <td align="center" width="200px">
+          <center><span style="font-size: 20px">Bilkent University</span></center>
+        </td>
+        <td align="center" width="200px">
           <center><span style="font-size: 20px">Technical University of Munich</span></center>
         </td>
       </tr>
@@ -279,7 +288,7 @@
     <tbody>
       <tr>
         <td align="center" width="700px">
-          <center><span style="font-size: 22px">IROS 2023</span></center>
+          <center><span style="font-size: 22px">ICRA 2024</span></center>
         </td>
       </tr>
       <tr></tr>
@@ -317,7 +326,7 @@
   </table>
   <!--       <br>
  -->
-  <div style="width: 800px; margin: 0 auto">
+  <!-- <div style="width: 800px; margin: 0 auto">
     <br />
     Sections
     <ul style="margin-top: 0px">
@@ -592,14 +601,14 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
   <br />
-
+  <h1>DETAILS ARE COMMING</h1>
   <h1>How to run benchmarks</h1>
   <h3>Using docker containers</h3>
   <div class="highlight1">
     <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#fd00dc">#!/bin/bash</span>
-       <br> </br><span style="color:#0167ff">git clone https://github.com/erdiphd/HER_force.git</span><br><span style="color:#0167ff">cd HER_force/docker</span><br><br><span style="color:#000000">#train our methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_contact_energy_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_contact_energy_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_contact_energy_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><br><span style="color:#000000">#train cper methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_cper_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_cper_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_cper_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><br><span style="color:#000000">#train her methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_her_pick  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_her_push  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_her_slide  -e n_epochs=50  -e num_cpu=8 -e  prioritization=none -e reward_type=sparse her_tactile
+       <br> </br><span style="color:#0167ff">git clone https://github.com/erdiphd/HER_force.git</span><br><span style="color:#0167ff">cd HER_force/docker</span><br><br><span style="color:#000000">#train our methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_contact_energy_pick  -e n_epochs=50  -e num_cpu=20 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_contact_energy_push  -e n_epochs=50  -e num_cpu=20 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_contact_energy_slide  -e n_epochs=50  -e num_cpu=20 -e  prioritization=contact_energy -e reward_type=sparse her_tactile</span><br><br><span style="color:#000000">#train cper methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_cper_pick  -e n_epochs=50  -e num_cpu=20 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_cper_push  -e n_epochs=50  -e num_cpu=20 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_cper_slide  -e n_epochs=50  -e num_cpu=20 -e  prioritization=cper -e reward_type=intrinsic her_tactile</span><br><br><span style="color:#000000">#train MEP methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_mep_pick  -e n_epochs=50  -e num_cpu=20 -e  prioritization=entropy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_mep_push  -e n_epochs=50  -e num_cpu=20 -e  prioritization=entropy -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_mep_slide  -e n_epochs=50  -e num_cpu=20 -e  prioritization=entropy -e reward_type=sparse her_tactile<br><br><span style="color:#000000">#train PER methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_per_pick  -e n_epochs=50  -e num_cpu=20 -e  prioritization=tderror -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_per_push  -e n_epochs=50  -e num_cpu=20 -e  prioritization=tderror -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_per_slide  -e n_epochs=50  -e num_cpu=20 -e  prioritization=tderror -e reward_type=sparse her_tactile<br><br><span style="color:#000000">#train her methods</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPickAndPlace-v1 -e log_tag=log/t1_her_pick  -e n_epochs=50  -e num_cpu=20 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchPush-v1 -e log_tag=log/t1_her_push  -e n_epochs=50  -e num_cpu=20 -e  prioritization=none -e reward_type=sparse her_tactile</span><br><span style="color:#0167ff">docker-compose run --rm  -e mujoco_env=FetchSlide-v1 -e log_tag=log/t1_her_slide  -e n_epochs=50  -e num_cpu=20 -e  prioritization=none -e reward_type=sparse her_tactile<br><br><span style="color:#000000">#train EBP methods</span><br><span style="color:#0167ff">git clone https://github.com/ruizhaogit/EnergyBasedPrioritization</span><br><span style="color:#000000">#Please use our Gym environment with the EBP</span><br>
   </code></pre>
   <h3>Creating virtual anaconda python environment</h3>
   <div class="highlight1">
@@ -607,7 +616,7 @@
     <br><span style="color:#000000">#Clone the repository</span>
     <br><span style="color:#0167ff">git clone https://github.com/erdiphd/HER_force.git</span>
     <br><span style="color:#000000">#train the robot</span>
-    <br><span style="color:#0167ff">cd HER_force/code/Algorithm</span><br><span style="color:#0167ff">conda activate her</span><br><span style="color:#0167ff">python baselines/her/experiment/train.py --env_name  FetchPickAndPlace-v1 --logdir=log/t1_contact_energy  --n_epochs=50 --num_cpu=8 --prioritization=contact_energy --reward_type sparse
+    <br><span style="color:#0167ff">cd HER_force/code/Algorithm</span><br><span style="color:#0167ff">conda activate her</span><br><span style="color:#0167ff">python baselines/her/experiment/train.py --env_name  FetchPickAndPlace-v1 --logdir=log/t1_contact_energy  --n_epochs=50 --num_cpu=20 --prioritization=contact_energy --reward_type sparse
     </span>
   </code></pre>
   </div>

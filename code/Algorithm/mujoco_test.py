@@ -1,7 +1,7 @@
 import gym
 import threading
-
-env = gym.make("FrankaPickAndPlace-v1", reward_type="sparse")
+import numpy as np
+env = gym.make("FetchPickAndPlace-v1", reward_type="sparse")
 
 def continuous_run():
     while True:
@@ -22,4 +22,5 @@ counter = 0
 obs = env.reset()
 action_test = [0,0,0,1]
 while True:
-    obs = env.reset()
+    action_test = env.action_space.sample()
+    tmp = env.step(np.zeros(8))

@@ -14,13 +14,20 @@ class FetchPushEnv(fetch_env.FetchEnv, utils.EzPickle):
             'robot0:slide0': 0.405,
             'robot0:slide1': 0.48,
             'robot0:slide2': 0.0,
-            'object0:joint': [1.25, 0.53, 0.4, 1., 0., 0., 0.],
+            'robot0:shoulder_pan_joint': 0.0,
+            'robot0:shoulder_lift_joint': -0.7,
+            'robot0:upperarm_roll_joint': 0.0,
+            'robot0:elbow_flex_joint': 1.55,
+            'robot0:forearm_roll_joint': 0.0,
+            'robot0:wrist_flex_joint': 0.75,
+            'robot0:wrist_roll_joint': 0.0,
+            'object0:joint': [1.25, 0.53, 0.42, 1., 0., 0., 0.],
         }
 
         fetch_env.FetchEnv.__init__(
             self, MODEL_XML_PATH, has_object=True, block_gripper=True, n_substeps=20,
-            gripper_extra_height=0.0, target_in_the_air=False, target_offset=np.array([0.0, 0.0, 0.0]),
-            obj_range=0.15, target_range=0.15, distance_threshold=0.05,
+            gripper_extra_height=0.0, target_in_the_air=False, target_offset=np.array([0.1, 0.0, 0.0]),
+            obj_range=0.25, target_range=0.25, distance_threshold=0.05,
             initial_qpos=initial_qpos, reward_type=reward_type,
             force_range=10, force_reward_weight=0.25, task='push')
         utils.EzPickle.__init__(self)

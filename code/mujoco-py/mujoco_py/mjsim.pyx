@@ -2,7 +2,7 @@ from xml.dom import minidom
 from mujoco_py.utils import remove_empty_lines
 from mujoco_py.builder import build_callback_fn
 from threading import Lock
-
+import numpy as np
 _MjSim_render_lock = Lock()
 
 ctypedef void (*substep_udd_t)(const mjModel* m, mjData* d)
@@ -128,7 +128,7 @@ cdef class MjSim(object):
         energy_gripper = []
         energy_puck = []
         dt = self.nsubsteps * self.model.opt.timestep
-
+        additional_information_container = {"energy_3d":[], "gripper_left_3dforce":[], "gripper_right_3dforce":[]}
         with wrap_mujoco_warning():
             for _ in range(self.nsubsteps):
                 self.substep_callback()
@@ -137,8 +137,12 @@ cdef class MjSim(object):
                 energy_gripper.append(self.data.get_site_xvelp('robot0:grip') * dt * (self.data.get_sensor('force_sensor_r') + self.data.get_sensor('force_sensor_l')))
                 energy_puck.append(self.data.get_site_xvelp('object0') * dt * (self.data.get_sensor('force_sensor_r') + self.data.get_sensor('force_sensor_l')))
                 mj_step(self.model.ptr, self.data.ptr)
+                energy_of_object3d = np.dot(np.abs(self.data.sensordata[-3:]), self.data.get_site_xvelp('object0') * dt) + np.dot(np.abs(self.data.sensordata[-6:-3]), self.data.get_site_xvelp('object0') * dt)
+                additional_information_container["energy_3d"].append(energy_of_object3d) 
+                additional_information_container["gripper_left_3dforce"].append(self.data.sensordata[-3:])
+                additional_information_container["gripper_right_3dforce"].append(self.data.sensordata[-6:-3]) 
 
-        return force_left, force_right, energy_gripper, energy_puck
+        return force_left, force_right, energy_gripper, energy_puck, additional_information_container
 
     def render(self, width=None, height=None, *, camera_name=None, depth=False,
                mode='offscreen', device_id=-1):

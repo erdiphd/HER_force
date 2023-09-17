@@ -85,14 +85,17 @@ def make_sample_her_transitions_contact_energy(replay_strategy, replay_k, reward
     if kwargs['env_name'] == "FetchPickAndPlace-v1":
         max_limit = np.array([1.55, 1.1, np.inf])
         min_limit = np.array([1.05, 0.4, 0.419])
+        contact_energy_function = lambda contact_energy: 100 / (1 + np.exp(-0.1 * contact_energy)) - 50
 
     elif kwargs['env_name'] == "FetchSlide-v1":
         max_limit = np.array([1.95, 1.2, np.inf])
         min_limit = np.array([0.7, 0.3, 0.4])
+        contact_energy_function = lambda contact_energy: 100 / (1 + np.exp(-0.05 * contact_energy)) - 50
 
     elif kwargs['env_name'] == "FetchPush-v1":
         max_limit = np.array([1.55, 1.11, np.inf])
         min_limit = np.array([1.05, 0.4, 0.4])
+        contact_energy_function = lambda contact_energy: 100 / (1 + np.exp(-0.1 * contact_energy)) - 50
 
     elif kwargs['env_name'] == "FrankaPickAndPlace-v1":
         max_limit = np.array([0.65, 0.35, np.inf])
@@ -119,16 +122,18 @@ def make_sample_her_transitions_contact_energy(replay_strategy, replay_k, reward
         gripper_position = episode_batch['o'][:,1:,:3]
         limit_checker = np.all((gripper_position > min_limit), axis=-1) & np.all((gripper_position < max_limit), axis=-1).astype(int)
 
-        selected_touch_values = np.multiply(episode_batch['info_touch_replay_buffer'], np.expand_dims(limit_checker, axis=-1))
+        selected_touch_values = np.multiply(episode_batch['info_intrinsic_sum_energy'], np.expand_dims(limit_checker, axis=-1))
 
 
         prev_object_position = episode_batch['o'][:, :-1, 3:6]
         object_position = episode_batch['o'][:, 1:, 3:6]
         object_pos_difference = np.linalg.norm(object_position - prev_object_position,axis=-1)
 
-        sum_through_1_dimension = np.sum(selected_touch_values,axis=-1)
-
+        sum_through_1_dimension = np.sum(selected_touch_values, axis=-1)
+       
         contact_energy = np.multiply(sum_through_1_dimension, object_pos_difference)
+       
+        contact_energy = contact_energy_function(contact_energy)
 
         replay_buffer_pri_abs = np.abs(contact_energy)
         replay_buffer_obs_episode = np.sum(replay_buffer_pri_abs, axis=1) + sys.float_info.epsilon
@@ -140,7 +145,7 @@ def make_sample_her_transitions_contact_energy(replay_strategy, replay_k, reward
         else:
             probs = replay_obs_probability_episode[episode_idxs]
             tmp = 1 / replay_obs_probability_episode[list(set(episode_idxs))].sum()
-            weights = (T * rollout_batch_size * tmp * probs) ** -0.7
+            weights = (T * rollout_batch_size * tmp * probs) ** -1
             weights = weights / weights.max()
             bias_correction = weights
 

@@ -14,17 +14,11 @@
 		</body>
 
 		<include file="robot.xml"></include>
-		
-		<body name="table0" pos="1.32441906 0.75018422 0.2">
-			<geom size="0.625 0.45 0.2" type="box" condim="3" name="table0" material="table_mat" mass="2000" friction="0.1 0.005 0.0001"></geom>
 
-
-			<site name="goal_sampled_area" pos="0.08 0 0.2" size="0.3 0.3 0.001" rgba="0 1 1 0.5" type="box"/>
-
-			<site name="object_sampled_area" pos="-0.32 0 0.2" size="0.1 0.1 0.001" rgba="1 1 0 0.5" type="box"/>
-
-
-
+		<body name="table0" pos="1.9 0.75 0.2">
+			<geom size="1.2 1.0 0.2" type="box" condim="3" name="table0" material="table_mat" mass="2000" friction="0.1 0.005 0.0001"></geom>
+			<site name="workspace0" pos="-0.5 0 0.2" size="0.3 0.3 0.011" rgba="0.1 0.5 0.3 1" type="box"></site>
+			<site name="workspace1" pos="0.1 0 0.2" size="0.6 0.6 0.01" rgba="0.1 0.3 0.5 1" type="box"></site>
 		</body>
 
 		<body name="object0" pos="0.025 0.025 0.02">

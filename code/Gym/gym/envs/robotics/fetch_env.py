@@ -50,12 +50,32 @@ class FetchEnv(robot_env.RobotEnv):
         self.force_range = force_range
         self.force_reward_weight = force_reward_weight
         self.ymg = 0.91
-        if reward_type=='intrinsic':
-            self.baseline = False
-        else:
+        if task == "push":
             self.baseline = True
+        else:
+            self.baseline = False
+        if self.block_gripper:
+            self.n_action = 7
+            self.joint_names = ["robot0:shoulder_pan_joint",
+                                "robot0:shoulder_lift_joint",
+                                "robot0:upperarm_roll_joint",
+                                "robot0:elbow_flex_joint",
+                                "robot0:forearm_roll_joint",
+                                "robot0:wrist_flex_joint",
+                                "robot0:wrist_roll_joint"]
+        else:
+            self.n_action = 8
+            self.joint_names = ["robot0:shoulder_pan_joint",
+                                "robot0:shoulder_lift_joint",
+                                "robot0:upperarm_roll_joint",
+                                "robot0:elbow_flex_joint",
+                                "robot0:forearm_roll_joint",
+                                "robot0:wrist_flex_joint",
+                                "robot0:wrist_roll_joint",
+                                "robot0:l_gripper_finger_joint",
+                                "robot0:r_gripper_finger_joint"]
 
-        self.n_action = 4
+
 
         super(FetchEnv, self).__init__(
             model_path=model_path, n_substeps=n_substeps, n_actions=self.n_action,
@@ -65,7 +85,6 @@ class FetchEnv(robot_env.RobotEnv):
     # ----------------------------
 
     def compute_reward(self, achieved_goal, goal, info):
-        # Compute rewards
         d_pos = goal_distance(achieved_goal, goal)
         position_reward = -(d_pos > self.distance_threshold).astype(np.float32)
         if self.reward_type == 'sparse':
@@ -83,8 +102,6 @@ class FetchEnv(robot_env.RobotEnv):
             raise ValueError('False reward type is selected. Select either intrinsic, continuous or sparse')
             return None
 
-
-
     # RobotEnv methods
     # ----------------------------
 
@@ -95,21 +112,23 @@ class FetchEnv(robot_env.RobotEnv):
             self.sim.forward()
 
     def _set_action(self, action):
-        assert action.shape == (4,)
-        action = action.copy()  # ensure that we don't change the action outside of this scope
-        pos_ctrl, gripper_ctrl = action[:3], action[3]
-
-        pos_ctrl *= 0.05  # limit maximum change in position
-        rot_ctrl = [1., 0., 1., 0.]  # fixed rotation of the end effector, expressed as a quaternion
-        gripper_ctrl = np.array([gripper_ctrl, gripper_ctrl])
-        assert gripper_ctrl.shape == (2,)
+        assert action.shape == (self.n_action,)
+        # ensure that we don't change the action outside of this scope
         if self.block_gripper:
-            gripper_ctrl = np.zeros_like(gripper_ctrl)
-        action = np.concatenate([pos_ctrl, rot_ctrl, gripper_ctrl])
+            action = action.copy()
+        else:
+            action = np.hstack([action.copy(), action[-1].copy()])
 
-        # Apply action to simulation.
-        utils.ctrl_set_action(self.sim, action)
-        utils.mocap_set_action(self.sim, action)
+        # control range of actuator
+        ctrlrange = self.sim.model.actuator_ctrlrange
+        actuation_range = (ctrlrange[:, 1] - ctrlrange[:, 0]) / 2.
+        actuation_center = (ctrlrange[:, 1] + ctrlrange[:, 0]) / 2.
+
+        # Converting actions to control inputs
+        self.sim.data.ctrl[:] = actuation_center + action * actuation_range
+
+        # Clipping actions according to allowed ctrl_range
+        self.sim.data.ctrl[:] = np.clip(self.sim.data.ctrl, ctrlrange[:, 0], ctrlrange[:, 1])
 
     def _get_obs(self):
         # positions
@@ -136,12 +155,6 @@ class FetchEnv(robot_env.RobotEnv):
         force = self.force
         sum_force = self.sum_force
 
-        force_replay_buffer = self.force_replay_buffer
-        sum_force_replay_buffer = self.sum_force_replay_buffer
-
-        touch_replay_buffer = float(self.touch_replay_buffer)
-        sum_touch_replay_buffer = float(self.sum_touch_replay_buffer)
-
         # achieved goal
         if not self.has_object:
             achieved_goal = grip_pos.copy()
@@ -162,8 +175,6 @@ class FetchEnv(robot_env.RobotEnv):
             'observation': obs.copy(),
             'achieved_goal': achieved_goal.copy(),
             'desired_goal': self.goal.copy(),
-            'force_replay_buffer': [force_replay_buffer, sum_force_replay_buffer],
-            'touch_replay_buffer': [touch_replay_buffer, sum_touch_replay_buffer],
         }
 
     def _viewer_setup(self):
@@ -212,15 +223,15 @@ class FetchEnv(robot_env.RobotEnv):
 
     def _reset_sim(self):
         self.sim.set_state(self.initial_state)
-        #self.randomize_initial_state()
+        self.randomize_initial_state()
 
         # Randomize start position of object.
         if self.has_object:
             object_xpos = self.initial_gripper_xpos[:2]
             while np.linalg.norm(object_xpos - self.initial_gripper_xpos[:2]) < 0.1:
                 object_xpos = self.initial_gripper_xpos[:2] + self.np_random.uniform(-self.obj_range, self.obj_range, size=2)
-                # if self.task == 'slide':
-                #     object_xpos[0] += self.obj_range
+                if self.task == 'slide':
+                    object_xpos[0] += self.obj_range
             object_qpos = self.sim.data.get_joint_qpos('object0:joint')
             assert object_qpos.shape == (7,)
             object_qpos[:2] = object_xpos
@@ -234,8 +245,8 @@ class FetchEnv(robot_env.RobotEnv):
             goal = self.initial_gripper_xpos[:3] + self.np_random.uniform(-self.target_range, self.target_range, size=3)
             goal[2] = self.height_offset
             goal += self.target_offset
-            if self.target_in_the_air and self.np_random.uniform() < 0.5:
-                goal[2] += self.np_random.uniform(0, 0.45)
+            if self.target_in_the_air:
+                goal[2] += self.np_random.uniform(0, 0.35)
         else:
             goal = self.initial_gripper_xpos[:3] + self.np_random.uniform(-self.target_range, self.target_range, size=3)
         return goal.copy()
@@ -247,16 +258,7 @@ class FetchEnv(robot_env.RobotEnv):
     def _env_setup(self, initial_qpos):
         for name, value in initial_qpos.items():
             self.sim.data.set_joint_qpos(name, value)
-        utils.reset_mocap_welds(self.sim)
         self.sim.forward()
-
-        # Move end effector into position.
-        gripper_target = np.array([-0.498, 0.005, -0.431 + self.gripper_extra_height]) + self.sim.data.get_site_xpos('robot0:grip')
-        gripper_rotation = np.array([1., 0., 1., 0.])
-        self.sim.data.set_mocap_pos('robot0:mocap', gripper_target)
-        self.sim.data.set_mocap_quat('robot0:mocap', gripper_rotation)
-        for _ in range(10):
-            self.sim.step()
 
         # Extract information for sampling goals.
         self.initial_gripper_xpos = self.sim.data.get_site_xpos('robot0:grip').copy()

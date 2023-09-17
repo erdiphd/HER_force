@@ -5,7 +5,7 @@ import numpy as np
 import gym
 from gym import error, spaces
 from gym.utils import seeding
-import quaternion
+
 try:
     import mujoco_py
 except ImportError as e:
@@ -42,6 +42,7 @@ class RobotEnv(gym.GoalEnv):
         self.sum_force = self.force
         self.energy = np.array([0.0, 0.0, 0.0])
         self.sum_energy = self.energy
+
         self.force_replay_buffer = np.array([0.0, 0.0, 0.0])
         self.sum_force_replay_buffer = self.force_replay_buffer.copy()
         self.touch_replay_buffer = np.array(0.0)
@@ -74,34 +75,19 @@ class RobotEnv(gym.GoalEnv):
         self._set_action(action)
 
         # return of force, gripper_energy, puck_energy
-        force_left, force_right, _, energy_return = self.sim.step()
+        force_left, force_right, energy_gripper, energy_puck, info_dict = self.sim.step()
 
         self.force = np.sum(np.array(force_left + force_right), axis=0) / self.sim.nsubsteps
-        self.energy = np.sum(np.array(energy_return), axis=0) / self.sim.nsubsteps
+        self.energy = np.sum(np.array(energy_puck), axis=0) / self.sim.nsubsteps
 
         # store sum of forces and energies
         self.sum_energy += self.energy
         self.sum_force += self.force
 
-        #Force and Work Replay buffers
-        self.right_gripper_contact_sensor = self.sim.data.sensordata[2:5] + np.array([0, 0, 4 * 9.81])
-        self.left_gripper_contact_sensor = self.sim.data.sensordata[5:] + np.array([0, 0, 4 * 9.81])
-        
-        site_id = self.sim.model.site_name2id('force_sensor_r')
-        quad = quaternion.as_float_array(quaternion.from_rotation_matrix(self.sim.data.site_xmat[site_id].copy().reshape(3, 3)))
-        location = self.sim.data.site_xpos[site_id]
-        rotation_mat = quaternion.as_rotation_matrix(np.quaternion(*quad))
-        self.right_gripper_contact_sensor = np.dot(rotation_mat, self.right_gripper_contact_sensor)
 
-        site_id = self.sim.model.site_name2id('force_sensor_l')
-        quad = quaternion.as_float_array(quaternion.from_rotation_matrix(self.sim.data.site_xmat[site_id].copy().reshape(3, 3)))
-        location = self.sim.data.site_xpos[site_id]
-        rotation_mat = quaternion.as_rotation_matrix(np.quaternion(*quad))
-        self.left_gripper_contact_sensor = np.dot(rotation_mat, self.left_gripper_contact_sensor)
-        
-        
 
-        self.force_replay_buffer = np.abs(self.right_gripper_contact_sensor) + np.abs(self.left_gripper_contact_sensor)
+
+        self.force_replay_buffer = np.sum(np.abs(info_dict['gripper_left_3dforce']) + np.abs(info_dict['gripper_right_3dforce']), axis=0) / self.sim.nsubsteps
         self.sum_force_replay_buffer += self.force_replay_buffer
 
         ## TODO check_erdi
@@ -112,6 +98,7 @@ class RobotEnv(gym.GoalEnv):
 
         self._step_callback()
         obs = self._get_obs()
+
         info = {'is_success': self._is_success(obs['achieved_goal'], self.goal), 'intrinsic_force': self.force,
                 'intrinsic_sum_force': self.sum_force, 'intrinsic_sum_energy': self.sum_energy, 'force_replay_buffer': self.force_replay_buffer, 'sum_force_replay_buffer':self.sum_force_replay_buffer,
                 'touch_replay_buffer': self.touch_replay_buffer, 'sum_touch_replay_buffer': self.sum_touch_replay_buffer}

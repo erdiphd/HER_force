@@ -406,27 +406,6 @@ for reward_type in ['sparse', 'dense']:
         kwargs=kwargs,
         max_episode_steps=50,
     )
-    
-    register(
-        id='FrankaSlide{}-v1'.format(suffix),
-        entry_point='gym.envs.robotics:FrankaSlideEnv',
-        kwargs=kwargs,
-        max_episode_steps=100,
-    )
-    
-    register(
-        id='FrankaPickAndPlace{}-v1'.format(suffix),
-        entry_point='gym.envs.robotics:FrankaPickAndPlaceEnv',
-        kwargs=kwargs,
-        max_episode_steps=100,
-    )
-    
-    register(
-        id='FrankaPush{}-v1'.format(suffix),
-        entry_point='gym.envs.robotics:FrankaPushEnv',
-        kwargs=kwargs,
-        max_episode_steps=100,
-    )
 
     # Hand
     register(
